@@ -14,20 +14,24 @@ export function useAuth() {
 
   const login = useCallback(async (email: string, password: string) => {
     setIsLoading(true);
-    
+
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Mock authentication - accept any credentials
+
+    if (email !== 'mfw@gmail.com' || password !== 'mfw@123') {
+      setIsLoading(false);
+      throw new Error('Invalid credentials');
+    }
+
     const mockUser: User = {
       email,
-      name: email.split('@')[0],
+      name: 'MediaFirewall Admin',
     };
-    
+
     localStorage.setItem('user', JSON.stringify(mockUser));
     setUser(mockUser);
     setIsLoading(false);
-    
+
     return mockUser;
   }, []);
 

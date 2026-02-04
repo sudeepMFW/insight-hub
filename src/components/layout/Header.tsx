@@ -1,9 +1,13 @@
-
-import { Bell, Moon, Sun, Search, User } from "lucide-react";
+import { Bell, Moon, Sun, LogOut, User } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 export function Header() {
     const [isDark, setIsDark] = useState(false);
+    const { logout } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (isDark) {
@@ -13,16 +17,17 @@ export function Header() {
         }
     }, [isDark]);
 
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
+
     return (
         <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-white/20 bg-white/80 px-6 backdrop-blur-xl dark:bg-black/80">
             <div className="flex items-center gap-4">
-                <div className="relative hidden sm:block">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        className="h-9 w-64 rounded-full border border-gray-200 bg-gray-50 pl-9 text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary dark:border-gray-800 dark:bg-gray-900"
-                    />
+                <div className="flex items-center gap-2">
+                    <img src="https://mediafirewall.ai/images/logo.png" alt="Logo" className="h-8 w-8 object-contain" />
+                    <span className="text-lg font-bold text-primary">MediaFirewall</span>
                 </div>
             </div>
 
@@ -43,6 +48,15 @@ export function Header() {
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <User className="h-5 w-5" />
                     </div>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleLogout}
+                        className="text-gray-500 hover:text-red-600 hover:bg-red-50 dark:text-gray-400 dark:hover:bg-red-900/20"
+                    >
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Logout
+                    </Button>
                 </div>
             </div>
         </header>

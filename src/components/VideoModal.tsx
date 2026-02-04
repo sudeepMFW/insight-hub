@@ -93,6 +93,22 @@ export function VideoModal({ videos, productName, isOpen, onClose }: VideoModalP
                   <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 rounded-full" onClick={toggleMute}>
                     {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
                   </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-white hover:bg-white/20 rounded-full"
+                    onClick={() => {
+                      if (videoRef.current) {
+                        if (document.fullscreenElement) {
+                          document.exitFullscreen();
+                        } else {
+                          videoRef.current.requestFullscreen();
+                        }
+                      }
+                    }}
+                  >
+                    <Maximize className="w-6 h-6" />
+                  </Button>
                 </div>
 
                 {/* Navigation Arrows (if multiple) */}

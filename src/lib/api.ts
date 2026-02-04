@@ -1,4 +1,4 @@
-const BASE_URL = 'http://52.224.244.235:8001';
+const BASE_URL = 'https://enterprise-mediafirewall-ai.millionvisions.ai';
 
 export interface Product {
   id: string;

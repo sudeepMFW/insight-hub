@@ -53,7 +53,7 @@ export function LoginPage() {
 
         <div className="relative z-10">
           <div className="flex items-center gap-3">
-            <div className="w20 h-20 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+            <div className="w-20 h-20 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
               <img
                 src="https://mediafirewall.ai/images/logo.png"
                 alt="MediaFirewall Logo"
