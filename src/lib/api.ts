@@ -1,9 +1,18 @@
 const BASE_URL = 'https://enterprise-mediafirewall-ai.millionvisions.ai';
 
+export interface DescriptionSection {
+  type: 'hero' | 'paragraph' | 'bullets' | 'highlight' | 'tagline';
+  title?: string;
+  subtitle?: string;
+  content?: string;
+  items?: string[];
+}
+
 export interface Product {
   id: string;
   name: string;
   description?: string;
+  description_sections?: DescriptionSection[];
   short_description?: string;
   icon?: string;
   category: 'active' | 'demo' | 'coming_soon';
@@ -43,7 +52,7 @@ export async function analyzeImage(
 ): Promise<VoiceSummaryResponse> {
   const formData = new FormData();
   formData.append('voice_id', voiceId);
-  
+
   if (options.image) {
     formData.append('image', options.image);
   }
