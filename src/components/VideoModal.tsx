@@ -51,7 +51,7 @@ export function VideoModal({ videos, productName, isOpen, onClose }: VideoModalP
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-5xl p-0 overflow-hidden bg-black/95 border-none shadow-2xl rounded-3xl">
+      <DialogContent className="max-w-[90vw] p-0 overflow-hidden bg-black/95 border-none shadow-2xl rounded-3xl">
         <DialogTitle className="sr-only">{productName} Demo</DialogTitle>
 
         <div className="relative group">
@@ -62,7 +62,7 @@ export function VideoModal({ videos, productName, isOpen, onClose }: VideoModalP
               key={currentVideo}
               src={currentVideo}
               autoPlay
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain bg-black"
               onEnded={() => setIsPlaying(false)}
               onClick={togglePlay}
             />

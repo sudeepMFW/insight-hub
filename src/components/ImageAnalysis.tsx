@@ -170,7 +170,7 @@ export function ImageAnalysis() {
             return (
               <div key={step.id} className="flex flex-col items-center gap-2 relative group">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${isActive ? 'border-primary bg-primary text-white shadow-lg shadow-primary/25' :
-                    isCompleted ? 'border-primary bg-primary/10 text-primary' : 'border-muted bg-background text-muted-foreground'
+                  isCompleted ? 'border-primary bg-primary/10 text-primary' : 'border-muted bg-background text-muted-foreground'
                   }`}>
                   {isCompleted ? <CheckCircle2 className="w-5 h-5" /> : <step.icon className="w-5 h-5" />}
                 </div>
@@ -297,19 +297,16 @@ export function ImageAnalysis() {
 
               <div className="relative">
                 <Textarea
-                  placeholder="e.g., Describe the main objects in this image..."
+                  placeholder={`Ask anything to ${selectedAgent?.name} about the image`}
                   className="min-h-[120px] text-lg p-6 rounded-2xl bg-white/50 dark:bg-black/20 focus:ring-primary shadow-sm resize-none"
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
                 />
-                <div className="absolute bottom-4 right-4 text-xs text-muted-foreground">
-                  Optional
-                </div>
               </div>
 
               <div className="flex justify-between items-center pt-8">
                 <Button variant="ghost" onClick={handlePrevStep}>Back</Button>
-                <Button size="lg" variant="gradient" onClick={handleAnalyze} className="min-w-[200px] h-14 text-lg shadow-lg hover:shadow-primary/25 hover:scale-105 transition-all">
+                <Button size="lg" variant="default" onClick={handleAnalyze} className="min-w-[200px] h-14 text-lg shadow-lg bg-primary hover:bg-primary/90 hover:shadow-primary/25 hover:scale-105 transition-all">
                   <Sparkles className="w-5 h-5 mr-2" />
                   Analyze Now
                 </Button>
@@ -328,7 +325,7 @@ export function ImageAnalysis() {
                     <div className="absolute inset-0 border-4 border-primary rounded-full border-t-transparent animate-spin"></div>
                     <Sparkles className="absolute inset-0 m-auto w-8 h-8 text-primary animate-pulse" />
                   </div>
-                  <h3 className="text-xl font-semibold">Analyzing Image...</h3>
+                  <h3 className="text-xl font-semibold">{selectedAgent?.name} is Analyzing Image...</h3>
                   <p className="text-muted-foreground mt-2">Please wait while {selectedAgent?.name} processes your request.</p>
                 </div>
               )}
