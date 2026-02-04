@@ -53,27 +53,33 @@ export function LoginPage() {
 
         <div className="relative z-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
-              <Sparkles className="w-6 h-6 text-white" />
+            <div className="w20 h-20 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+              <img
+                src="https://mediafirewall.ai/images/logo.png"
+                alt="MediaFirewall Logo"
+                className="w-20 h-20 object-contain"
+              />
             </div>
-            <span className="text-xl font-bold text-white tracking-tight">MediaFirewall</span>
+            <span className="text-xl font-bold text-white tracking-tight">
+              MediaFirewall
+            </span>
           </div>
         </div>
 
         <div className="relative z-10 max-w-lg">
           <h1 className="text-5xl font-bold text-white mb-6 leading-tight">
-            Enterprise Grade <br />
+            AI-powered<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-blue-200">
-              Media Intelligence
+              Content Moderation
             </span>
           </h1>
           <p className="text-purple-100 text-lg leading-relaxed">
-            Unlock the power of AI-driven media analysis. Secure, fast, and built for modern teams.
+            AI content moderation platform trusted for safety and compliance trusted for safety and compliance
           </p>
         </div>
 
         <div className="relative z-10 flex items-center gap-4 text-purple-200 text-sm font-medium">
-          <span>© 2026 MediaFirewall Inc.</span>
+          <span>© MediaFirewall Inc.</span>
           <span className="w-1 h-1 rounded-full bg-purple-400"></span>
           <span>Privacy Policy</span>
           <span className="w-1 h-1 rounded-full bg-purple-400"></span>

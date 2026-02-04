@@ -49,7 +49,7 @@ export function ProductCard({ product, onDescription, onDemo }: ProductCardProps
             onClick={onDescription}
             className="flex-1 hover:bg-primary/5 hover:text-primary transition-colors"
           >
-            Details
+            Description
           </Button>
 
           {hasDemo ? (
@@ -59,7 +59,7 @@ export function ProductCard({ product, onDescription, onDemo }: ProductCardProps
               className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20"
             >
               <Play className="w-3.5 h-3.5 mr-2 fill-current" />
-              Watch
+              Play Demo
             </Button>
           ) : hasRedirect ? (
             <Button
