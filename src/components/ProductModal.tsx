@@ -1,8 +1,7 @@
 import { Product } from '@/lib/api';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { ExternalLink, Play, Box, X } from 'lucide-react';
+import { ExternalLink, Play, Layers } from 'lucide-react';
 
 interface ProductModalProps {
   product: Product | null;
@@ -11,35 +10,22 @@ interface ProductModalProps {
   onDemo?: () => void;
 }
 
-const categoryConfig = {
-  active: { label: 'Active', className: 'bg-green-100 text-green-700' },
-  demo: { label: 'Demo', className: 'bg-blue-100 text-blue-700' },
-  coming_soon: { label: 'Coming Soon', className: 'bg-amber-100 text-amber-700' },
-};
-
 export function ProductModal({ product, isOpen, onClose, onDemo }: ProductModalProps) {
   if (!product) return null;
 
-  const category = categoryConfig[product.category] || categoryConfig.active;
   const hasDemo = product.demo_videos && product.demo_videos.length > 0;
   const hasRedirect = !!product.redirect_url;
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader className="pb-4 border-b border-border">
           <div className="flex items-start gap-4">
             <div className="w-16 h-16 rounded-2xl gradient-subtle-bg flex items-center justify-center shrink-0">
-              {product.icon ? (
-                <span className="text-3xl">{product.icon}</span>
-              ) : (
-                <Box className="w-8 h-8 text-primary" />
-              )}
+              <Layers className="w-8 h-8 text-primary" />
             </div>
             <div className="flex-1">
               <DialogTitle className="text-xl font-bold">{product.name}</DialogTitle>
-              <Badge variant="outline" className={`mt-2 ${category.className}`}>
-                {category.label}
-              </Badge>
             </div>
           </div>
         </DialogHeader>
