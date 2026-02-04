@@ -9,14 +9,14 @@ interface ProductCardProps {
   onDemo: () => void;
 }
 
-const statusConfig = {
+const categoryConfig = {
   active: { label: 'Active', className: 'bg-green-100 text-green-700 border-green-200' },
   demo: { label: 'Demo', className: 'bg-blue-100 text-blue-700 border-blue-200' },
   coming_soon: { label: 'Coming Soon', className: 'bg-amber-100 text-amber-700 border-amber-200' },
 };
 
 export function ProductCard({ product, onDescription, onDemo }: ProductCardProps) {
-  const status = statusConfig[product.status] || statusConfig.active;
+  const category = categoryConfig[product.category] || categoryConfig.active;
   const hasDemo = product.demo_videos && product.demo_videos.length > 0;
   const hasRedirect = !!product.redirect_url;
 
@@ -36,8 +36,8 @@ export function ProductCard({ product, onDescription, onDemo }: ProductCardProps
             <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
               {product.name}
             </h3>
-            <Badge variant="outline" className={`text-xs mt-1 ${status.className}`}>
-              {status.label}
+            <Badge variant="outline" className={`text-xs mt-1 ${category.className}`}>
+              {category.label}
             </Badge>
           </div>
         </div>

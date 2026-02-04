@@ -1,15 +1,20 @@
-const BASE_URL = 'http://52.224.244.235:8000';
+const BASE_URL = 'http://52.224.244.235:8001';
 
 export interface Product {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   short_description?: string;
   icon?: string;
-  status: 'active' | 'demo' | 'coming_soon';
+  category: 'active' | 'demo' | 'coming_soon';
   demo_videos?: string[];
-  redirect_url?: string;
+  redirect_url?: string | null;
   order: number;
+}
+
+export interface ProductsResponse {
+  total: number;
+  products: Product[];
 }
 
 export interface VoiceSummaryResponse {
@@ -24,8 +29,8 @@ export async function fetchProducts(): Promise<Product[]> {
   if (!response.ok) {
     throw new Error('Failed to fetch products');
   }
-  const data = await response.json();
-  return data.sort((a: Product, b: Product) => a.order - b.order);
+  const data: ProductsResponse = await response.json();
+  return data.products.sort((a: Product, b: Product) => a.order - b.order);
 }
 
 export async function analyzeImage(

@@ -11,7 +11,7 @@ interface ProductModalProps {
   onDemo?: () => void;
 }
 
-const statusConfig = {
+const categoryConfig = {
   active: { label: 'Active', className: 'bg-green-100 text-green-700' },
   demo: { label: 'Demo', className: 'bg-blue-100 text-blue-700' },
   coming_soon: { label: 'Coming Soon', className: 'bg-amber-100 text-amber-700' },
@@ -20,10 +20,9 @@ const statusConfig = {
 export function ProductModal({ product, isOpen, onClose, onDemo }: ProductModalProps) {
   if (!product) return null;
 
-  const status = statusConfig[product.status] || statusConfig.active;
+  const category = categoryConfig[product.category] || categoryConfig.active;
   const hasDemo = product.demo_videos && product.demo_videos.length > 0;
   const hasRedirect = !!product.redirect_url;
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -38,8 +37,8 @@ export function ProductModal({ product, isOpen, onClose, onDemo }: ProductModalP
             </div>
             <div className="flex-1">
               <DialogTitle className="text-xl font-bold">{product.name}</DialogTitle>
-              <Badge variant="outline" className={`mt-2 ${status.className}`}>
-                {status.label}
+              <Badge variant="outline" className={`mt-2 ${category.className}`}>
+                {category.label}
               </Badge>
             </div>
           </div>
