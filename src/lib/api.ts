@@ -16,7 +16,7 @@ export interface Product {
   short_description?: string;
   icon?: string;
   category: 'active' | 'demo' | 'coming_soon';
-  demo_videos?: string[];
+  demo_videos?: { title: string; video_url: string }[];
   redirect_url?: string | null;
   order: number;
 }

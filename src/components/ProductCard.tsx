@@ -1,21 +1,27 @@
+// Product interface imported from api
 import { Product } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Play, Sparkles, ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { CSSProperties } from 'react';
 
 interface ProductCardProps {
   product: Product;
   onDescription: () => void;
   onDemo: () => void;
+  gradientStyle?: CSSProperties;
 }
 
-export function ProductCard({ product, onDescription, onDemo }: ProductCardProps) {
+export function ProductCard({ product, onDescription, onDemo, gradientStyle }: ProductCardProps) {
   const hasDemo = product.demo_videos && product.demo_videos.length > 0;
   const hasRedirect = !!product.redirect_url;
   const hasDescription = (product.description && product.description.trim().length > 0) || (product.description_sections && product.description_sections.length > 0);
 
   return (
-    <div className="group relative rounded-2xl p-[1px] bg-gradient-to-br from-purple-500/20 to-blue-500/20 hover:from-purple-500/40 hover:to-blue-500/40 transition-all duration-500 overflow-hidden">
+    <div
+      className="group relative rounded-2xl p-[1px] transition-all duration-500 overflow-hidden"
+      style={gradientStyle}
+    >
       {/* Glow Effect */}
       <div className="absolute inset-0 bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 

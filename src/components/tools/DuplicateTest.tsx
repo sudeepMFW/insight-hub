@@ -7,7 +7,13 @@ import { useToast } from '@/hooks/use-toast';
 import { Upload, Link, X, Copy, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export function DuplicateTest() {
+import { ArrowLeft, Trash2 } from 'lucide-react';
+
+interface DuplicateTestProps {
+    onBack?: () => void;
+}
+
+export function DuplicateTest({ onBack }: DuplicateTestProps) {
     const [inputImage, setInputImage] = useState<File | null>(null);
     const [inputUrl, setInputUrl] = useState('');
     const [inputPreview, setInputPreview] = useState<string | null>(null);
@@ -23,6 +29,7 @@ export function DuplicateTest() {
     const testFileRef = useRef<HTMLInputElement>(null);
     const { toast } = useToast();
 
+    // ... existing handlers ...
     const handleFileChange = (
         e: React.ChangeEvent<HTMLInputElement>,
         setFile: (f: File | null) => void,
@@ -72,6 +79,14 @@ export function DuplicateTest() {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const clearAll = () => {
+        setInputImage(null); setInputUrl(''); setInputPreview(null);
+        setTestImage(null); setTestUrl(''); setTestPreview(null);
+        setResult(null);
+        if (inputFileRef.current) inputFileRef.current.value = '';
+        if (testFileRef.current) testFileRef.current.value = '';
     };
 
     const renderUploadSection = (
@@ -134,13 +149,25 @@ export function DuplicateTest() {
     );
 
     return (
-        <div className="glass-panel p-8 rounded-3xl border border-white/20 dark:border-white/5 space-y-8 animate-fade-in text-left">
-            <div>
-                <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
-                    <Copy className="w-6 h-6 text-blue-500" />
-                    Duplicate Image Detector
-                </h2>
-                <p className="text-muted-foreground">Compare two images to check if they are duplicates.</p>
+        <div className="glass-panel p-8 rounded-3xl border border-white/20 dark:border-white/5 space-y-8 animate-fade-in text-left relative">
+            <div className="flex flex-col gap-4">
+                <div className="flex items-center justify-between">
+                    <div>
+                        {onBack && (
+                            <Button variant="ghost" size="sm" onClick={onBack} className="-ml-2 mb-2 text-muted-foreground hover:text-foreground">
+                                <ArrowLeft className="w-4 h-4 mr-1" /> Back
+                            </Button>
+                        )}
+                        <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
+                            <Copy className="w-6 h-6 text-blue-500" />
+                            Duplicate Image Detector
+                        </h2>
+                        <p className="text-muted-foreground">Compare two images to check if they are duplicates.</p>
+                    </div>
+                    <Button variant="outline" size="sm" onClick={clearAll} className="text-destructive hover:text-destructive">
+                        <Trash2 className="w-4 h-4 mr-2" /> Clear All
+                    </Button>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

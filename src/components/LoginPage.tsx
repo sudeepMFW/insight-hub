@@ -53,11 +53,12 @@ export function LoginPage() {
 
         <div className="relative z-10">
           <div className="flex items-center gap-3">
-            <div className="w-20 h-20 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+            {/* Original Logo Reverted */}
+            <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
               <img
                 src="https://mediafirewall.ai/images/logo.png"
                 alt="MediaFirewall Logo"
-                className="w-20 h-20 object-contain"
+                className="w-8 h-8 object-contain"
               />
             </div>
             <span className="text-xl font-bold text-white tracking-tight">
@@ -66,16 +67,39 @@ export function LoginPage() {
           </div>
         </div>
 
-        <div className="relative z-10 max-w-lg">
-          <h1 className="text-5xl font-bold text-white mb-6 leading-tight">
-            Mediafirewall<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-blue-200">
-              Innovation Lab
-            </span>
-          </h1>
-          <p className="text-purple-100 text-lg leading-relaxed">
-            An AI Computer Vision Platform Trusted for Safety, Compliance, and Scale.
-          </p>
+        <div className="relative z-10 max-w-xl space-y-8">
+          {/* Foreground Video Player */}
+          <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-black/20 backdrop-blur-sm">
+            <video
+              src="https://mfwstorage1.blob.core.windows.net/new-filters/Romancee_Scams.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              className="w-full h-auto object-cover"
+            />
+          </div>
+
+          <div>
+            <h1 className="text-5xl font-bold text-white mb-4 leading-tight">
+              Mediafirewall<br />
+              <div className="flex items-center gap-4">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-blue-200">
+                  Innovation Lab
+                </span>
+                {/* Bamboo Logo Next to Text */}
+                <img
+                  src="https://static.vecteezy.com/system/resources/previews/053/775/838/non_2x/lush-bamboo-plant-isolated-for-decorative-use-on-transparent-background-png.png"
+                  alt="Bamboo"
+                  className="w-16 h-16 object-contain drop-shadow-lg"
+                />
+              </div>
+            </h1>
+            <p className="text-purple-100 text-lg leading-relaxed">
+              An AI Computer Vision Platform Trusted for Safety, Compliance, and Scale.
+            </p>
+          </div>
         </div>
 
         <div className="relative z-10 flex items-center gap-4 text-purple-200 text-sm font-medium">

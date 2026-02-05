@@ -27,8 +27,8 @@ export function ToolSidebar({ activeView, onSelect }: ToolSidebarProps) {
                             key={tool.id}
                             variant={activeView === tool.id ? 'secondary' : 'ghost'}
                             className={`w-full justify-start h-auto py-3 px-4 rounded-xl transition-all duration-300 group ${activeView === tool.id
-                                    ? 'bg-primary/5 text-primary shadow-sm ring-1 ring-primary/20'
-                                    : 'hover:bg-gray-50 dark:hover:bg-zinc-800 text-muted-foreground hover:text-foreground'
+                                ? 'bg-primary/5 text-primary shadow-sm ring-1 ring-primary/20'
+                                : 'hover:bg-gray-50 dark:hover:bg-zinc-800 text-muted-foreground hover:text-foreground'
                                 }`}
                             onClick={() => onSelect(tool.id as ToolView)}
                         >
@@ -44,15 +44,7 @@ export function ToolSidebar({ activeView, onSelect }: ToolSidebarProps) {
                 </div>
             </div>
 
-            <div className="p-6 bg-gradient-to-br from-primary/5 to-purple-500/5 rounded-3xl border border-primary/10">
-                <h4 className="font-medium text-primary mb-2">Need Custom Solutions?</h4>
-                <p className="text-sm text-muted-foreground mb-4">
-                    Contact our sales team for enterprise-grade custom AI models tailored to your specific needs.
-                </p>
-                <Button className="w-full bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-shadow">
-                    Contact Sales
-                </Button>
-            </div>
+
         </div>
     );
 }

@@ -38,12 +38,13 @@ export function Dashboard() {
   const renderMainContent = () => {
     switch (activeView) {
       case 'image-analysis':
-        return <ImageAnalysis />;
+        return <ImageAnalysis onBack={() => setActiveView('products')} />;
       case 'duplicate':
-        return <DuplicateTest />;
+        return <DuplicateTest onBack={() => setActiveView('products')} />;
       case 'text-removal':
         return (
           <SingleImageTool
+            onBack={() => setActiveView('products')}
             type="text-removal"
             title="Text Remover"
             description="Remove unwanted text from your images intelligently."
@@ -55,6 +56,7 @@ export function Dashboard() {
       case 'rotation':
         return (
           <SingleImageTool
+            onBack={() => setActiveView('products')}
             type="rotation"
             title="Image Rotator"
             description="Automatically correct image orientation."
@@ -66,6 +68,7 @@ export function Dashboard() {
       case 'face-blur':
         return (
           <SingleImageTool
+            onBack={() => setActiveView('products')}
             type="face-blur"
             title="Face Blur"
             description="Automatically detect and blur faces for privacy."
@@ -103,15 +106,35 @@ export function Dashboard() {
 
             {products && products.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
-                {products.map((product, index) => (
-                  <div key={product.id} className="animate-slide-up" style={{ animationDelay: `${index * 50}ms` }}>
-                    <ProductCard
-                      product={product}
-                      onDescription={() => handleDescription(product)}
-                      onDemo={() => handleDemo(product)}
-                    />
-                  </div>
-                ))}
+                {products.map((product, index) => {
+                  // Dynamic Gradient Logic: Darker Purple to Light Blue
+                  // Total products count for interpolation
+                  const total = products.length;
+
+                  // We want to interpolate between Deep Purple (e.g., Hue 270, L 20%) and Light Blue (e.g., Hue 200)
+
+                  const startHue = 270; // Purple
+                  const endHue = 190;   // Light Blue
+
+                  const step = (startHue - endHue) / (total - 1 || 1);
+                  const currentHue = startHue - (step * index);
+
+                  // Darker start: Lower lightness (e.g. 30-40%) and higher opacity
+                  const gradientStyle = {
+                    backgroundImage: `linear-gradient(135deg, hsla(${currentHue}, 80%, 30%, 0.4), hsla(${currentHue - 20}, 80%, 40%, 0.2))`
+                  };
+
+                  return (
+                    <div key={product.id} className="animate-slide-up" style={{ animationDelay: `${index * 50}ms` }}>
+                      <ProductCard
+                        product={product}
+                        onDescription={() => handleDescription(product)}
+                        onDemo={() => handleDemo(product)}
+                        gradientStyle={gradientStyle}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             )}
 

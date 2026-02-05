@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ImageProcessResponse } from '@/lib/api';
 import { useToast } from '@/hooks/use-toast';
-import { Upload, X, Loader2, ArrowRight } from 'lucide-react';
+import { Upload, X, Loader2, ArrowRight, ArrowLeft } from 'lucide-react';
 import { ToolView } from '@/components/ToolSidebar';
 
 interface SingleImageToolProps {
@@ -13,9 +13,10 @@ interface SingleImageToolProps {
     icon: React.ElementType;
     iconColor: string;
     processFunction: (source: { file?: File; url?: string }) => Promise<ImageProcessResponse>;
+    onBack?: () => void;
 }
 
-export function SingleImageTool({ type, title, description, icon: Icon, iconColor, processFunction }: SingleImageToolProps) {
+export function SingleImageTool({ type, title, description, icon: Icon, iconColor, processFunction, onBack }: SingleImageToolProps) {
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [imageUrl, setImageUrl] = useState('');
     const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -80,6 +81,11 @@ export function SingleImageTool({ type, title, description, icon: Icon, iconColo
     return (
         <div className="glass-panel p-8 rounded-3xl border border-white/20 dark:border-white/5 space-y-8 animate-fade-in text-left">
             <div>
+                {onBack && (
+                    <Button variant="ghost" size="sm" onClick={onBack} className="-ml-2 mb-2 text-muted-foreground hover:text-foreground">
+                        <ArrowLeft className="w-4 h-4 mr-1" /> Back
+                    </Button>
+                )}
                 <h2 className="text-2xl font-bold mb-2 flex items-center gap-2">
                     <Icon className={`w-6 h-6 ${iconColor}`} />
                     {title}

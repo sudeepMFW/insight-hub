@@ -5,7 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { AgentCard, Agent } from '@/components/AgentCard';
 import { analyzeImage, VoiceSummaryResponse } from '@/lib/api';
 import { useToast } from '@/hooks/use-toast';
-import { Upload, X, Sparkles, Volume2, RotateCcw, CheckCircle2, ChevronRight, User, Image as ImageIcon, MessageSquare, Send, Loader2 } from 'lucide-react';
+import { Upload, X, Sparkles, Volume2, RotateCcw, CheckCircle2, ChevronRight, User, Image as ImageIcon, MessageSquare, Send, Loader2, ArrowLeft, Trash2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 const agents: Agent[] = [
@@ -38,7 +38,11 @@ const LOADING_MESSAGES = [
   "Almost there..."
 ];
 
-export function ImageAnalysis() {
+interface ImageAnalysisProps {
+  onBack?: () => void;
+}
+
+export function ImageAnalysis({ onBack }: ImageAnalysisProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -63,7 +67,7 @@ export function ImageAnalysis() {
     }
   }, [chatHistory, isAnalyzing]);
 
-  // Loading Message Cycle
+  // Loading Message Cycle & Auto-play Audio
   useEffect(() => {
     if (isAnalyzing) {
       let i = 0;
@@ -74,6 +78,16 @@ export function ImageAnalysis() {
       return () => clearInterval(interval);
     }
   }, [isAnalyzing]);
+
+  // Audio effect to play last assistant message automatically
+  useEffect(() => {
+    const lastMsg = chatHistory[chatHistory.length - 1];
+    if (lastMsg && lastMsg.role === 'assistant' && lastMsg.audio && audioRef.current) {
+      audioRef.current.src = lastMsg.audio;
+      audioRef.current.play().catch(e => console.error("Audio playback error:", e));
+    }
+  }, [chatHistory]);
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -123,11 +137,6 @@ export function ImageAnalysis() {
       });
 
       setChatHistory(prev => {
-        // If first run, don't add user question again (it's in the input box context initially)
-        // Actually simpler to just always treat as chat.
-        // Let's reset chat history on first run? No, we want a conversation.
-        // The first prompt sets the context.
-
         const newHistory = [...prev];
         if (prev.length === 0) {
           newHistory.push({ role: 'user', text: question });
@@ -146,7 +155,6 @@ export function ImageAnalysis() {
       toast({ title: 'Success', description: 'Analysis complete' });
     } catch (error) {
       toast({ title: 'Error', description: 'Analysis failed. Please try again.', variant: 'destructive' });
-      // Remove failed user message? Or keep it.
     } finally {
       setIsAnalyzing(false);
     }
@@ -169,25 +177,31 @@ export function ImageAnalysis() {
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none" />
 
+      {/* Header Actions */}
+      <div className="absolute top-6 left-6 z-20 flex gap-2">
+        {onBack && (
+          <Button variant="outline" size="sm" onClick={onBack} className="bg-background/80 backdrop-blur-md">
+            <ArrowLeft className="w-4 h-4 mr-2" /> Back
+          </Button>
+        )}
+        {imagePreview && (
+          <Button variant="outline" size="sm" onClick={handleReset} className="bg-background/80 backdrop-blur-md text-destructive hover:text-destructive">
+            <Trash2 className="w-4 h-4 mr-2" /> Clear
+          </Button>
+        )}
+      </div>
+
       {/* Left Column: Image Preview (Persistent) */}
-      <div className={`flex-1 lg:max-w-[40%] flex flex-col transition-all duration-500 ${!imagePreview ? 'hidden lg:flex' : 'flex'}`}>
+      <div className={`flex-1 lg:max-w-[40%] flex flex-col transition-all duration-500 mt-12 lg:mt-0 ${!imagePreview ? 'hidden lg:flex' : 'flex'}`}>
         <div className="bg-muted/30 rounded-2xl border border-white/10 dark:border-white/5 overflow-hidden relative flex-1 min-h-[300px] flex items-center justify-center group h-full">
           {imagePreview ? (
             <>
               <img src={imagePreview} alt="Preview" className="w-full h-full object-contain" />
               <div className="absolute top-4 left-4">
                 <Badge className="bg-black/60 hover:bg-black/70 text-white backdrop-blur-md border-none">
-                  analyzing.png
+                  Analyzing
                 </Badge>
               </div>
-              <Button
-                size="icon"
-                variant="destructive"
-                className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
-                onClick={handleReset}
-              >
-                <RotateCcw className="w-4 h-4" />
-              </Button>
             </>
           ) : (
             <div className="text-center p-8 text-muted-foreground">
