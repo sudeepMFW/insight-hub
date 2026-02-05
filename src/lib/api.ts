@@ -74,3 +74,88 @@ export async function analyzeImage(
 
   return response.json();
 }
+
+export interface DuplicateResponse {
+  status_code: number;
+  message: string;
+}
+
+export interface ImageProcessResponse {
+  message: string;
+  image_url: string;
+}
+
+// 1. Duplicate Test
+export async function checkDuplicate(
+  input: { file?: File; url?: string },
+  test: { file?: File; url?: string }
+): Promise<DuplicateResponse> {
+  const formData = new FormData();
+
+  if (input.file) formData.append('input_file', input.file);
+  else if (input.url) formData.append('input_url', input.url);
+
+  if (test.file) formData.append('test_file', test.file);
+  else if (test.url) formData.append('test_url', test.url);
+
+  const response = await fetch(`${BASE_URL}/duplicate/test`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) throw new Error('Failed to check duplicates');
+  return response.json();
+}
+
+// 2. Remove Text
+export async function removeText(
+  source: { file?: File; url?: string },
+  mode: 'mask' | 'crop' = 'mask'
+): Promise<ImageProcessResponse> {
+  const formData = new FormData();
+  if (source.file) formData.append('file', source.file);
+  else if (source.url) formData.append('url', source.url);
+  formData.append('mode', mode);
+
+  const response = await fetch(`${BASE_URL}/text`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) throw new Error('Failed to remove text');
+  return response.json();
+}
+
+// 3. Rotate Image
+export async function rotateImage(
+  source: { file?: File; url?: string }
+): Promise<ImageProcessResponse> {
+  const formData = new FormData();
+  if (source.file) formData.append('file', source.file);
+  else if (source.url) formData.append('url', source.url);
+
+  const response = await fetch(`${BASE_URL}/rotation/`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) throw new Error('Failed to rotate image');
+  return response.json();
+}
+
+// 4. Blur Face
+export async function blurFace(
+  source: { file?: File; url?: string }
+): Promise<ImageProcessResponse> {
+  const formData = new FormData();
+  if (source.file) formData.append('file', source.file);
+  else if (source.url) formData.append('url', source.url);
+
+  const response = await fetch(`${BASE_URL}/face-blur`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) throw new Error('Failed to blur faces');
+  return response.json();
+}

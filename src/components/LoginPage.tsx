@@ -68,13 +68,13 @@ export function LoginPage() {
 
         <div className="relative z-10 max-w-lg">
           <h1 className="text-5xl font-bold text-white mb-6 leading-tight">
-            AI-powered<br />
+            Mediafirewall<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-blue-200">
-              Content Moderation
+              Innovation Lab
             </span>
           </h1>
           <p className="text-purple-100 text-lg leading-relaxed">
-            AI content moderation platform trusted for safety and compliance trusted for safety and compliance
+            An AI Computer Vision Platform Trusted for Safety, Compliance, and Scale.
           </p>
         </div>
 

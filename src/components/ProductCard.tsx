@@ -15,7 +15,7 @@ export function ProductCard({ product, onDescription, onDemo }: ProductCardProps
   const hasDescription = (product.description && product.description.trim().length > 0) || (product.description_sections && product.description_sections.length > 0);
 
   return (
-    <div className="group relative rounded-2xl p-[1px] bg-gradient-to-b from-white/20 to-transparent hover:from-primary/50 hover:to-primary/10 transition-all duration-500 overflow-hidden">
+    <div className="group relative rounded-2xl p-[1px] bg-gradient-to-br from-purple-500/20 to-blue-500/20 hover:from-purple-500/40 hover:to-blue-500/40 transition-all duration-500 overflow-hidden">
       {/* Glow Effect */}
       <div className="absolute inset-0 bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
