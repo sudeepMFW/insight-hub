@@ -148,6 +148,7 @@ export function Dashboard() {
       </div>
 
       {/* Modals are global to dashboard */}
+      {/* Modals are global to dashboard */}
       <ProductModal
         product={selectedProduct}
         isOpen={isDescriptionOpen}
