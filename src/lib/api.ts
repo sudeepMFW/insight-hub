@@ -117,7 +117,7 @@ export async function removeText(
   else if (source.url) formData.append('url', source.url);
   formData.append('mode', mode);
 
-  const response = await fetch(`${BASE_URL}/text`, {
+  const response = await fetch(`${BASE_URL}/text/`, {
     method: 'POST',
     body: formData,
   });
@@ -151,7 +151,7 @@ export async function blurFace(
   if (source.file) formData.append('file', source.file);
   else if (source.url) formData.append('url', source.url);
 
-  const response = await fetch(`${BASE_URL}/face-blur`, {
+  const response = await fetch(`${BASE_URL}/face-blur/`, {
     method: 'POST',
     body: formData,
   });
