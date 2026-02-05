@@ -99,11 +99,11 @@ export function ImageAnalysis() {
   // Text Animation
   useEffect(() => {
     if (response?.text) {
-      let index = 0;
+      let index = 1;
       setDisplayedText('');
       const interval = setInterval(() => {
-        if (index < response.text.length) {
-          setDisplayedText((prev) => prev + response.text[index]);
+        if (index <= response.text.length) {
+          setDisplayedText(response.text.slice(0, index));
           index++;
         } else {
           clearInterval(interval);
@@ -144,6 +144,16 @@ export function ImageAnalysis() {
     setImageUrl('');
     setImagePreview(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const handleReset = () => {
+    // Clear all analysis state
+    setSelectedAgent(null);
+    clearImage();
+    setQuestion('');
+    setResponse(null);
+    setDisplayedText('');
+    setCurrentStep(1);
   };
 
   return (
@@ -365,7 +375,7 @@ export function ImageAnalysis() {
                     )}
 
                     <div className="pt-6 border-t border-border flex justify-end">
-                      <Button variant="ghost" onClick={() => setCurrentStep(1)}>Start New Analysis</Button>
+                      <Button variant="ghost" onClick={handleReset}>Start New Analysis</Button>
                     </div>
                   </div>
                 </div>

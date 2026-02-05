@@ -12,6 +12,7 @@ interface ProductCardProps {
 export function ProductCard({ product, onDescription, onDemo }: ProductCardProps) {
   const hasDemo = product.demo_videos && product.demo_videos.length > 0;
   const hasRedirect = !!product.redirect_url;
+  const hasDescription = (product.description && product.description.trim().length > 0) || (product.description_sections && product.description_sections.length > 0);
 
   return (
     <div className="group relative rounded-2xl p-[1px] bg-gradient-to-b from-white/20 to-transparent hover:from-primary/50 hover:to-primary/10 transition-all duration-500 overflow-hidden">
@@ -43,14 +44,16 @@ export function ProductCard({ product, onDescription, onDemo }: ProductCardProps
 
         {/* Actions */}
         <div className="flex items-center gap-2 mt-auto pt-4 border-t border-border/50">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onDescription}
-            className="flex-1 hover:bg-primary/5 hover:text-primary transition-colors"
-          >
-            Description
-          </Button>
+          {hasDescription && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onDescription}
+              className="flex-1 hover:bg-primary/5 hover:text-primary transition-colors"
+            >
+              Description
+            </Button>
+          )}
 
           {hasDemo ? (
             <Button
